@@ -128,7 +128,7 @@ nav {
   padding: 16px 24px;
   background: #6700c8;
   border: 1px solid #ea00ff;
-  border-radius: 12px;
+  border-radius: 24px;
 }
 
 nav h1 {
@@ -199,8 +199,7 @@ nav h1 {
   transition: 
     background 0.25s ease,
     color 0.25s ease,
-    transform 0.25s ease
-    ;
+    transform 0.25s ease;
 }
 
 #portfolio a:hover {
@@ -219,4 +218,53 @@ nav h1 {
 
 #portfolio a:hover::after {
   opacity: 1;
+}
+
+/*responsive web design*/
+@media screen and (min-width: 120px) and (max-width: 1080px) {
+  main {
+    height: 100ch;
+    zoom: 1.5;
+    display: grid;
+  }
+
+  h1 {
+    font-size: 44px;
+  }
+
+  h2 {
+    font-size: 42px;
+  }
+
+  h3 {
+    font-size: 36px;
+  }
+
+  #all-contents {
+    height: 100ch;
+    margin: none;
+  }
+
+  a {
+    font-size: 42px;
+  }
+
+  .sidebar {
+    margin-right: 0px;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .sidebar-img {
+    width: 100%;
+  }
+
+  p, li {
+    font-size: 24px;
+  }
+
+  .content {
+    align-content: center;
+    justify-content: center;
+  }
 }

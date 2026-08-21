@@ -1,0 +1,70 @@
+body {
+    background-image: url('first-website-images/blog-background.png');
+    background-repeat: repeat;
+}
+
+.head {
+    background: #0000FF;
+    color: #ffffff;
+}
+
+.gallery {
+
+}
+
+.image-gallery {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.image-gallery img {
+    width: 400px;
+    object-fit: cover;
+}
+
+#blog-main {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+#blog-top {
+    background: #0000FF;
+    color: #ffffff;
+    text-align: center;
+}
+
+#blog-top h1 {
+
+}
+
+#blog-grid {
+    display: grid;
+    grid-template-columns: 1fr 400px;
+    width: 90vw;
+    column-gap: 60px;
+    justify-content: center;
+}
+
+.blog {
+    
+}
+
+.blog-post {
+    background: #0000FF;
+    color: #ffffff;
+
+}
+
+.blog-title {
+
+}
+
+.email {
+    
+}
+
+.time {
+
+}
