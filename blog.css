@@ -1,11 +1,17 @@
 body {
     background-image: url('first-website-images/blog-background.png');
     background-repeat: repeat;
+    margin: 0;
+    padding: 0;
 }
 
 .head {
-    background: #0000FF;
+    background: #393974;
     color: #ffffff;
+    font-family: Impact;
+    text-align: center;
+    font-size: 30px;
+    font-weight: 100;
 }
 
 .gallery {
@@ -30,13 +36,27 @@ body {
 }
 
 #blog-top {
-    background: #0000FF;
-    color: #ffffff;
+    margin: 0;
+    background: linear-gradient(180deg, #00ff00 20%, #0000ff);
+    background-size: 100%;
+    background-attachment: fixed;
+
+    color: #00f2ff;
     text-align: center;
+    border: 10px #fcffa2 ridge;
+    border-radius: 20px;
+    padding: 15px 30px;
 }
 
 #blog-top h1 {
+    font-family: Impact;
+    font-size: 45px;
+    font-weight: 100;
+}
 
+#blog-top p {
+    font-family: Georgia;
+    font-size: 15px;
 }
 
 #blog-grid {
@@ -48,23 +68,55 @@ body {
 }
 
 .blog {
-    
+
 }
 
 .blog-post {
-    background: #0000FF;
+    background: #431e70;
     color: #ffffff;
-
+    border: 20px #ff00ae ridge;
+    border-radius: 32px;
+    margin: 50px;
+    padding: 0 15px;
 }
 
 .blog-title {
-
+    font-family: m; 
+    font-size: 30px;
+    color: #f07cff;
 }
 
 .email {
-    
+    font-family: monospace;
+    font-size: 20px;
+    margin: -15px 0 0 0;
+    color: #f07cff;
+}
+
+blockquote {
+    font-family: Georgia;
+    font-size: 15px;
+    margin: 30px;
+}
+
+hr {
+    background: #ff00ae;
+    height: 1px;
+    border: none;
 }
 
 .time {
+    font-family: monospace;
+    font-size: 12px;
+    color: #f07cff;
+}
 
+.code-preview {
+    font-family: monospace;
+    font-size: 10px;
+    margin: 0 30px;
+    padding: 5px;
+    background: #3f3f3f;
+    border: none;
+    border-radius: 10px;
 }
