@@ -37,7 +37,7 @@ body {
 
 #blog-top {
     margin: 0;
-    background: linear-gradient(180deg, #00ff00 20%, #0000ff);
+    background: linear-gradient(180deg, #00ff00 -50%, #0000ff);
     background-size: 100%;
     background-attachment: fixed;
 
