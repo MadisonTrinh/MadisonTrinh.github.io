@@ -81,16 +81,18 @@ body {
 }
 
 .blog-title {
-    font-family: m; 
-    font-size: 30px;
+    font-family: Courier New; 
+    font-size: 40px;
     color: #f07cff;
+    margin: 5px 0 0 0;
 }
 
 .email {
-    font-family: monospace;
+    font-family: cursive;
     font-size: 20px;
     margin: -15px 0 0 0;
     color: #f07cff;
+    margin-top: 5px;
 }
 
 blockquote {
