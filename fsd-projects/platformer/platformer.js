@@ -265,12 +265,12 @@ $(function () {
     createPlatform(690,260,10,10,"white");
 
       // wires
-    createPlatform(650,410,10,200,"#ff0000")
-    createPlatform(740,410,10,200,"#ff0000")
-    createPlatform(660,420,10,10,"#00ff00")
-    createPlatform(730,420,10,10,"#00ff00")
-    createPlatform(670,420,10,20,"#0000ff")
-    createPlatform(720,420,10,20,"#0000ff")
+    createPlatform(650,410,10,200,"#ff0000");
+    createPlatform(740,410,10,200,"#ff0000");
+    createPlatform(660,420,10,10,"#00ff00");
+    createPlatform(730,420,10,10,"#00ff00");
+    createPlatform(670,420,10,20,"#0000ff");
+    createPlatform(720,420,10,20,"#0000ff");
 
     // TODO 3 - Create Collectables createCollectable("type",x,y,gravity,bounce); at least 3
     createCollectable("database",280,550,1,0);
