@@ -33,6 +33,7 @@ main {
   flex-direction: column;
   align-items: flex-start;
   gap: 12px;
+  margin-left: 50px;
 }
 
 h2 {
@@ -189,12 +190,12 @@ nav h1 {
   justify-content: space-between;
   align-items: center;
   text-decoration: none;
-  color: #444;
+  color: #6700c8;
   padding: 16px 20px;
   font-size: 1.1rem;
   font-weight: 500;
-  background: #fff;
-  border: 1px solid #e0e0e0;
+  background: #bc9dff;
+  border: 1px solid #0000ff;
   border-radius: 12px;
   transition: 
     background 0.25s ease,
@@ -203,8 +204,9 @@ nav h1 {
 }
 
 #portfolio a:hover {
-  background: #000;
-  color: #fff;
+  background: #6700c8;
+  color: #bc9dff;
+  border-color: #fff;
   transform: translateX(4px);
 }
 

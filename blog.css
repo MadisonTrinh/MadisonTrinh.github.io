@@ -122,3 +122,11 @@ hr {
     border: none;
     border-radius: 10px;
 }
+
+.blog-post li {
+    margin-left: 20px;
+}
+
+.done {
+    color:#00ff00;
+}
