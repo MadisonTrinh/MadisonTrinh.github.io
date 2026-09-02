@@ -55,8 +55,9 @@
         box.on("click", handleBoxClick);
 
         // moves the Box to a new position on the screen along the X-Axis
-        function moveBoxTo(newPositionX) {
+        function moveBoxTo(newPositionX, newPositionY) {
           box.css("left", newPositionX);
+          box.css("top", newPositionY);
         }
 
         // changes the text displayed on the Box
@@ -69,9 +70,12 @@
         //////////////////////////////////////////////////////////////////
 
         // TODO 2 - Variable declarations
-        var positionX = 0;
+        var positionX = 1000;
         var points = 0;
         var speed = 10;
+        var positionY = 400;
+        var speedY = 10;
+        var boardHeight = jQuery(window).height();
 
         /**
          * This Function will be called 20 times/second.
@@ -79,15 +83,24 @@
          * If the box drifts off the screen, turn it around!
          */
         function update() {
-          moveBoxTo(positionX);
+          moveBoxTo(positionX, positionY);
           positionX += speed;
+          positionY += speedY;
+
           if (positionX > boardWidth) {
             speed *= -1;
           } else if (positionX < 0) {
             speed *= -1;
+          };
+
+          if (positionY > boardHeight) {
+            speedY *= -1;
+          } else if (positionY < 0) {
+            speedY *= -1;
           }
+
                   
-        }
+        };
 
         /**
          * This Function will be called each time the box is clicked.
@@ -97,12 +110,25 @@
          * - move the box to the left side of the screen.
          */
         function handleBoxClick() {
-          positionX = 0;
+          positionX = checkRandom(0, boardWidth, 100);
+          positionY = checkRandom(0, boardHeight, 100);
           changeBoxText(points);
           points++;
-          speed = 3 * points + 10
+          speed = 3 * points + 10;
 
-        }
+        };
+
+        function checkRandom(bound1, bound2, sub) {
+          var randNum = Math.random(bound1 + sub) * (bound2 - sub);
+          console.log(bound1 + sub);
+          console.log(bound2 - sub);
+          if (!(bound1 + sub)<randNum<(bound2 - sub)) {
+            console.log(false);
+            console.log(randNum);
+          } else {
+            console.log(true);
+          }
+        };
         
       })();
     </script>
