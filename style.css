@@ -41,7 +41,7 @@ h2 {
   font-size: clamp(4rem, 10vw, 7rem);
   line-height: 0.9;
   font-weight: 900;
-  letter-spacing: 0.4em;
+  letter-spacing: 0.3em;
   text-transform: uppercase;
   color: #195c6d;
 }

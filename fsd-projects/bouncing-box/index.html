@@ -1,136 +1,260 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8" />
-    <title>Bouncing Box</title>
-    <script src="jquery.min.js"></script>
-    <style>
-      .box {
-        width: 70px;
-        height: 70px;
-        background-color: teal;
-        font-size: 300%;
-        text-align: center;
-        user-select: none;
-        display: block;
-        position: absolute;
-        top: 100px;
-        /* Change me! */
-        left: 0px;
+
+<head>
+  <meta charset="utf-8" />
+  <title>Bouncing Box</title>
+  <script src="jquery.min.js"></script>
+  <style>
+    .box {
+      width: 100px;
+      height: 100px;
+      background-image: url(halle-icon.png);
+      user-select: none;
+      display: block;
+      position: absolute;
+      top: 100px;
+      /* Change me! */
+      left: 0px;
+      background-size: cover;
+      background-color: black;
+    }
+
+    .board {
+      height: 100vh;
+      background-color: black;
+      align-items: center;
+      justify-content: center;
+    }
+
+    #halle {
+      width: fit-content;
+      height: fit-content;
+      margin: auto;
+    }
+
+    #halle img {
+      width: fit-content;
+      height: 80vh;
+    }
+
+    #score,
+    #time,
+    #rules {
+      color: white;
+      text-align: center;
+      font-size: 2vh;
+      position: relative;
+    }
+
+    #rules {
+      text-align: left;
+      margin-left: 8vw;
+    }
+  </style>
+  <!-- 	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script> -->
+</head>
+
+<body class="board">
+  <!-- HTML for the box -->
+  <p id="score">Points: 0</p>
+  <p id="time">Run Total: 0:0:0</p>
+
+  <div class="box"></div>
+  <div id="rules">
+    <li>Click the halleIcon to earn points!</li>
+    <li>Timer will begin when the icon is clicked.</li>
+    <li>When the color changes, (every 5 points) the speed will increase.</li>
+    <li>Timer will slowly become red as you misclick.</li>
+  </div>
+  <div id="halle">
+    <img src="bghalle.png" alt="bghalle">
+  </div>
+
+  <script>
+    (function () {
+      "use strict";
+      /* global jQuery */
+
+      //////////////////////////////////////////////////////////////////
+      /////////////////// SETUP DO NOT DELETE //////////////////////////
+      //////////////////////////////////////////////////////////////////
+
+      var box = jQuery(".box"); // reference to the HTML .box element
+      var board = jQuery(".board"); // reference to the HTML .board element
+      var boardWidth = board.width(); // the maximum X-Coordinate of the screen
+      var boardHeight = jQuery(window).height();
+
+      // update the boardWidth variable when the window is resized
+      jQuery(window).on("resize", function () {
+        boardWidth = board.width();
+      });
+
+      // Every time the box is clicked, call the handleBoxClick Function (see below)
+      box.on("click", handleBoxClick);
+      board.on("click", outBoxClick);
+
+      // moves the Box to a new position on the screen along the X-Axis
+      function moveBoxTo(newPositionX, newPositionY) {
+        box.css("left", newPositionX);
+        box.css("top", newPositionY);
       }
 
-      .board {
-        height: 100vh;
+      // changes the text displayed on the Box
+      function changeText(id, newText) {
+        document.getElementById(id).innerHTML = newText;
       }
-    </style>
-    <!-- 	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script> -->
-  </head>
 
-  <body class="board">
-    <!-- HTML for the box -->
-    <div class="box">?</div>
+      function timer() {
+        milliseconds++;
 
-    <script>
-      (function () {
-        "use strict";
-        /* global jQuery */
+        if (milliseconds === 100) { //issue: faster than iPhone stopwatch, but more accurate than 1000
+          seconds++
+          milliseconds = 0;
 
-        //////////////////////////////////////////////////////////////////
-        /////////////////// SETUP DO NOT DELETE //////////////////////////
-        //////////////////////////////////////////////////////////////////
-
-        var box = jQuery(".box"); // reference to the HTML .box element
-        var board = jQuery(".board"); // reference to the HTML .board element
-        var boardWidth = board.width(); // the maximum X-Coordinate of the screen
-
-        // update the boardWidth variable when the window is resized
-        jQuery(window).on("resize", function () {
-          boardWidth = board.width();
-        });
-
-        // Every 50 milliseconds, call the update Function (see below)
-        setInterval(update, 50);
-
-        // Every time the box is clicked, call the handleBoxClick Function (see below)
-        box.on("click", handleBoxClick);
-
-        // moves the Box to a new position on the screen along the X-Axis
-        function moveBoxTo(newPositionX, newPositionY) {
-          box.css("left", newPositionX);
-          box.css("top", newPositionY);
-        }
-
-        // changes the text displayed on the Box
-        function changeBoxText(newText) {
-          box.text(newText);
-        }
-
-        //////////////////////////////////////////////////////////////////
-        /////////////////// YOUR CODE BELOW HERE /////////////////////////
-        //////////////////////////////////////////////////////////////////
-
-        // TODO 2 - Variable declarations
-        var positionX = 1000;
-        var points = 0;
-        var speed = 10;
-        var positionY = 400;
-        var speedY = 10;
-        var boardHeight = jQuery(window).height();
-
-        /**
-         * This Function will be called 20 times/second.
-         * Each time it is called, it should move the Box to a new location.
-         * If the box drifts off the screen, turn it around!
-         */
-        function update() {
-          moveBoxTo(positionX, positionY);
-          positionX += speed;
-          positionY += speedY;
-
-          if (positionX > boardWidth) {
-            speed *= -1;
-          } else if (positionX < 0) {
-            speed *= -1;
-          };
-
-          if (positionY > boardHeight) {
-            speedY *= -1;
-          } else if (positionY < 0) {
-            speedY *= -1;
+          if (seconds === 60) {
+            minutes++
+            seconds = 0;
           }
+        }
 
-                  
+        if (misclicks > 9) {
+          changeText("time", "Congratulations! Run Finished At " + timePermanent);
+        } else {
+          changeText("time", "Run Total: " + minutes + ":" + seconds + ":" + milliseconds);
+        }
+      }
+
+      function start() {
+        if (points === 1) {
+          setInterval(update, 50); // Every 50 milliseconds, call the update Function
+          setInterval(timer, 0);
+          changeText("rules", " ");
+          clearInterval(startInterval);
+        }
+      }
+
+      var startInterval = setInterval(start, 0);
+
+
+      //////////////////////////////////////////////////////////////////
+      /////////////////// YOUR CODE BELOW HERE /////////////////////////
+      //////////////////////////////////////////////////////////////////
+
+      // TODO 2 - Variable declarations
+      var positionX = 1000;
+      var points = 0;
+      var speed = 0;
+      var positionY = 400;
+      var speedY = 0;
+
+      var minutes = 0;
+      var seconds = 0;
+      var milliseconds = 0;
+
+      var misclicks = 0;
+      var timePermanent;
+
+      /**
+       * This Function will be called 20 times/second.
+       * Each time it is called, it should move the Box to a new location.
+       * If the box drifts off the screen, turn it around!
+       */
+      function update() {
+        moveBoxTo(positionX, positionY);
+        positionX += speed;
+        positionY += speedY;
+
+        if (positionX > boardWidth - 100) {
+          speed *= -1;
+        } else if (positionX < 0) {
+          speed *= -1;
         };
 
-        /**
-         * This Function will be called each time the box is clicked.
-         * Each time it is called, it should perform each of the following actions:
-         * - increase the points total
-         * - increase the speed
-         * - move the box to the left side of the screen.
-         */
-        function handleBoxClick() {
-          positionX = checkRandom(0, boardWidth, 100);
-          positionY = checkRandom(0, boardHeight, 100);
-          changeBoxText(points);
-          points++;
-          speed = 3 * points + 10;
+        if (positionY > boardHeight - 100) {
+          speedY *= -1;
+        } else if (positionY < 0) {
+          speedY *= -1;
+        }
 
-        };
+      }
 
-        function checkRandom(bound1, bound2, sub) {
-          var randNum = Math.random(bound1 + sub) * (bound2 - sub);
-          console.log(bound1 + sub);
-          console.log(bound2 - sub);
-          if (!(bound1 + sub)<randNum<(bound2 - sub)) {
-            console.log(false);
-            console.log(randNum);
+      /**
+       * This Function will be called each time the box is clicked.
+       * Each time it is called, it should perform each of the following actions:
+       * - increase the points total
+       * - increase the speed
+       * - move the box to the left side of the screen.
+       */
+      function handleBoxClick() {
+        positionX = checkRandom(0, boardWidth, 100);
+        positionY = checkRandom(0, boardHeight, 100);
+        points++;
+        changeText("score", "Points: " + points);
+
+        // if (points === 1) {
+        //   setInterval(update, 50); // Every 50 milliseconds, call the update Function
+        //   setInterval(timer, 0);
+        //   changeText("rules", " ");
+        // }
+
+        //below code checks for multiples of 5 and changes the speed and color of the box if true
+
+        let convert = points.toString();
+        let containZero = convert.includes("0");
+        let containFive = convert.includes("5");
+
+        if (containZero === true || containFive === true) {
+          speed = 1 * points + 10;
+          speedY = 1 * points + 10;
+          box.css("background-color", randColor());
+        }
+
+      }
+
+      function outBoxClick() {
+        if (!box.is(":hover")) { // checks if the cursor is not hovering over the box
+          var lessColor = 255 - (misclicks * 25.5);
+          document.getElementById("score").style.color = `rgb(255, ${lessColor}, ${lessColor})`;
+          document.getElementById("time").style.color = `rgb(255, ${lessColor}, ${lessColor})`;
+
+          if (misclicks === 9) {
+            misclicks++;
+            document.getElementById("halle").innerHTML = "";
+
+            timePermanent = `${minutes}:${seconds}:${milliseconds}`;
+
+            box.css("width", 0);
+            box.css("height", 0);
           } else {
-            console.log(true);
+            misclicks++;
           }
-        };
-        
-      })();
-    </script>
-  </body>
+
+        }
+
+      }
+
+      function checkRandom(bound1, bound2, sub) {
+        var randNum = Math.random(bound1 + sub) * (bound2 - sub);
+        if ((bound1 + sub) < randNum && randNum < (bound2 - sub)) {
+          return randNum;
+        } else {
+          checkRandom(bound1, bound2, sub);
+        }
+      }
+
+      function randColor() {
+        var num1 = Math.round(Math.random(0) * 255);
+        var num2 = Math.round(Math.random(0) * 255);
+        var num3 = Math.round(Math.random(0) * 255);
+
+        var colorString = "rgb(" + num1 + ", " + num2 + ", " + num3 + ")";
+
+        return colorString;
+      }
+
+    })();
+  </script>
+</body>
+
 </html>
