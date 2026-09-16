@@ -3,6 +3,8 @@
   <head>
     <title>applesauce</title>
     <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="dark-mode.css" />
+    <script src="dark-mode.js"></script>
     <link rel="icon" href="first-website-images/favicon.png" type="image/x-icon" />
   </head>
 
@@ -18,10 +20,18 @@
         </ul>
       </nav>
 
+    <div class="mode-button dark">
+      <button onclick="switchMode()">DARK MODE</button>
+      <div class="tooltip">
+        <p class="tool-rep dark">?</p>
+        <p class="tip dark">Dark Mode allows you to freely switch between the intended code from the Operation Spark lesson, and the rebellious, more interesting concoctions planned in the cauldron.</p>
+      </div>
+    </div>
+
       <main>
         <div class="content">
-          <h1 style="color: #195c6d; font-family: Courier New; font-size: 50px;">Portfolio</h1>
-          <h3 style="font-family: Velvetica; font-size: 25px;">FSD Projects</h3>
+          <h1>Portfolio</h1>
+          <h3>FSD Projects</h3>
           <ul id="portfolio">
             <li>
               <a href="fsd-projects/platformer/">Platformer: A cannon-dodging adventure game for Halleb0t</a>

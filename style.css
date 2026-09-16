@@ -7,6 +7,7 @@ body {
   background: #f4c7ff;
   color: #222;
   font-family: "Helvetica Neue", Arial, sans-serif;
+  transition: 1s;
 }
 
 #all-contents {

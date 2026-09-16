@@ -4,6 +4,8 @@
 <head>
   <title>a webpage just 4 me</title>
   <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="dark-mode.css" />
+  <script src="dark-mode.js"></script>
   <link rel="icon" href="first-website-images/favicon.png" type="image/x-icon" />
 </head>
 
@@ -19,7 +21,16 @@
       </ul>
     </nav>
 
-    <main>
+    <div class="mode-button dark">
+      <button onclick="switchMode()">DARK MODE</button>
+      <div class="tooltip">
+        <p class="tool-rep dark">?</p>
+        <p class="tip dark">Dark Mode allows you to freely switch between the intended code from the Operation Spark lesson, and the rebellious, more interesting concoctions planned in the cauldron.</p>
+      </div>
+    </div>
+
+    <main id="index-main">
+
       <div class="sidebar">
         <img class="sidebar-img" src="https://pbs.twimg.com/media/HJUlCv5aEAAgsuz.jpg" alt="My image" />
         <p>Artist Credit: MOMOMO_906</p>
