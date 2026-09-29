@@ -108,7 +108,7 @@
       function timer() {
         milliseconds++;
 
-        if (milliseconds === 100) { //issue: faster than iPhone stopwatch, but more accurate than 1000
+        if (milliseconds === 250) { //issue resolved
           seconds++
           milliseconds = 0;
 
@@ -191,12 +191,6 @@
         positionY = checkRandom(0, boardHeight, 100);
         points++;
         changeText("score", "Points: " + points);
-
-        // if (points === 1) {
-        //   setInterval(update, 50); // Every 50 milliseconds, call the update Function
-        //   setInterval(timer, 0);
-        //   changeText("rules", " ");
-        // }
 
         //below code checks for multiples of 5 and changes the speed and color of the box if true
 

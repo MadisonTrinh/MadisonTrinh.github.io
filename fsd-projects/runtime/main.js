@@ -282,12 +282,20 @@ function drawBackground() {
   const w = canvas.width;
   const h = canvas.height;
 
-  ctx.fillStyle = THEME.upperBackground;
+  //upperBackground
+  const grd = ctx.createLinearGradient(0, 400, 0, 0); //(xStart, yStart, xEnd, yEnd)
+  grd.addColorStop(0, "#d257cc");
+  grd.addColorStop(0.5, "#210e4d"); // any stop in the middle must be from 0-1
+  grd.addColorStop(1, "#000000");
+
+  ctx.fillStyle = grd;
   ctx.fillRect(0, 0, w, groundY);
 
+  //ground
   ctx.fillStyle = THEME.ground;
   ctx.fillRect(0, groundY, w, groundY + groundHeight);
 
+  //lowerBackground
   ctx.fillStyle = THEME.lowerBackground;
   ctx.fillRect(0, groundY + groundHeight, w, h);
 }

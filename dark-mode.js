@@ -13,7 +13,8 @@ function switchMode() {
 
     if (title === "a webpage just 4 me") { // COME BACK TO REPLACE WIP
       document.getElementById('index-main').innerHTML = `
-      WIP
+      <p>WIP</p>
+      <p onclick="keyboardLetters">keyboardLettersTest</p>
       `;
     }
 
@@ -50,4 +51,14 @@ function switchMode() {
   }
   
   console.log(title); //code for checking other code
+}
+
+function keyboardLetters(text) {
+  var wholeText = "helloe";
+
+  // for (let i = 0; i < text.length; i++) {
+    
+  // }
+
+  console.log(wholeText);
 }

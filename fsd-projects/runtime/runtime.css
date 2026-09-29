@@ -7,15 +7,16 @@ img {
 
 #gameCanvas {
   position: absolute;
-  border: 4px solid #000;
+  border: 50px dotted #fff;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  padding: 20px;
 }
 
 body {
   margin: 0;
-  background-color: #00ccff;
+  background-color: #000;
   font-family: Arial, sans-serif;
   text-align: center;
   overflow: hidden;

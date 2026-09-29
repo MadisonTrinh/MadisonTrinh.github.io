@@ -1,26 +1,26 @@
 // === STUDENT SETTINGS ===
 // You can change these colors:
 const THEME = {
-  upperBackground: "midnightblue",
-  ground: "slategrey",
-  lowerBackground: "darkgreen",
+  upperBackground: "pink",
+  ground: "#00006b",
+  lowerBackground: "#174d69",
 };
 
 // These control the ground position and height:
-const groundY = 350; // Y position of the ground
+const groundY = 550; // Y position of the ground
 const groundHeight = 50; // Height of the ground
 
 // Change these to change the HUD, including health bar colors and sizes
 const HUD_SETTINGS = {
-  textColor: "white",
-  textFont: "20px Arial",
-  levelPosition: { x: 20, y: 30 },
-  scorePosition: { x: 200, y: 30 },
-  healthBarPosition: { x: 400, y: 15 },
-  healthBarSize: { width: 300, height: 25 },
+  textColor: "#4b0089",
+  textFont: "30px cursive",
+  levelPosition: { x: 20, y: 80 },
+  scorePosition: { x: 150, y: 80 },
+  healthBarPosition: { x: 10, y: 11 },
+  healthBarSize: { width: 1380, height: 30 },
   healthBarBorderColor: "black",
-  healthBarFillColor: "green",
-  healthBarBackgroundColor: "darkred",
+  healthBarFillColor: "#ff00f2",
+  healthBarBackgroundColor: "#340857",
 };
 // === END STUDENT SETTINGS ===
 

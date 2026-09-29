@@ -111,7 +111,7 @@ var Gamification = (function () {
 
   // Create player 1 (always green, uses WASD)
   function createPlayer1() {
-    player1 = draw.randomCircleInArea(canvas, true, true, "#00FF00", 3);
+    player1 = draw.randomCircleInArea(canvas, true, true, "#ea00ff", 3);
     player1.radius = 15;
     player1.scaleX = player1.scaleY = 1.5;
 
@@ -133,7 +133,7 @@ var Gamification = (function () {
     view.addChild(player1);
 
     // Add tooltip to identify player 1
-    addPlayerTooltip(player1, "P1", "#00FF00");
+    addPlayerTooltip(player1, "P1", "#ea00ff");
 
     // Add temporary pointer
     addTemporaryPointer(player1);
@@ -146,7 +146,7 @@ var Gamification = (function () {
   // Create player 2 (always blue, uses arrow keys)
   function createPlayer2() {
     // Create player2 using the same method as player1 but with blue color
-    player2 = draw.randomCircleInArea(canvas, true, true, "#0080FF", 3);
+    player2 = draw.randomCircleInArea(canvas, true, true, "#7300ff", 3);
     player2.radius = 15;
     player2.scaleX = player2.scaleY = 1.5;
 
@@ -169,7 +169,7 @@ var Gamification = (function () {
     view.addChild(player2);
 
     // Add tooltip to identify player 2
-    addPlayerTooltip(player2, "P2", "#0080FF");
+    addPlayerTooltip(player2, "P2", "#7300ff");
 
     // Reset score
     player2Score = 0;
@@ -525,6 +525,7 @@ var Gamification = (function () {
     }
   }
 
+
 // Update player 1 movement (WASD keys)
 function updatePlayer1() {
   if (!player1) return;
@@ -658,7 +659,7 @@ function updatePlayer2() {
   // Add a temporary pointer to highlight the player
   function addTemporaryPointer(player) {
     var pointer = new createjs.Shape();
-    pointer.graphics.beginFill("yellow").drawPolyStar(0, 0, 20, 3, 0, -90);
+    pointer.graphics.beginFill("black").drawPolyStar(0, 0, 20, 3, 0, -90);
     pointer.x = player.x;
     pointer.y = player.y - player.radius - 30;
     view.addChild(pointer);
@@ -921,7 +922,7 @@ function showCountdown(callback) {
   
   var countdownDiv = document.createElement("div");
   countdownDiv.id = "countdown";
-  countdownDiv.style.cssText = "font-size: 48px; color: #FFD700; text-align: center;";
+  countdownDiv.style.cssText = "font-size: 50px; font-weight: 700; color: #ea00ff; text-align: center; font-family: Courier New, courier;";
 
   if(gameModeDiv) gameModeDiv.style.display = 'none';
   instructions.style.display = 'block';
