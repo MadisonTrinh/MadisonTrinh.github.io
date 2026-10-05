@@ -14,7 +14,7 @@ function switchMode() {
     if (title === "a webpage just 4 me") { // COME BACK TO REPLACE WIP
       document.getElementById('index-main').innerHTML = `
       <p>WIP</p>
-      <p onclick="keyboardLetters">keyboardLettersTest</p>
+      <p class="keyboard-letters" onclick="keyboardLetters('helloe');">keyboardLettersTest</p>
       `;
     }
 
@@ -54,11 +54,17 @@ function switchMode() {
 }
 
 function keyboardLetters(text) {
-  var wholeText = "helloe";
+  var wholeText = " ";
+  var letter;
 
-  // for (let i = 0; i < text.length; i++) {
+  for (let i = 0; i < text.length; i++) {
+    letter = text.charAt(i);
+
+    wholeText += letter;
+
+
     
-  // }
-
-  console.log(wholeText);
+    document.getElementsByClassName('keyboard-letters').innerHTML= wholeText;
+    console.log(wholeText);
+  }
 }

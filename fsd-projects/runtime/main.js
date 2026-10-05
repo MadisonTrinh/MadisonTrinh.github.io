@@ -283,9 +283,11 @@ function drawBackground() {
   const h = canvas.height;
 
   //upperBackground
-  const grd = ctx.createLinearGradient(0, 400, 0, 0); //(xStart, yStart, xEnd, yEnd)
-  grd.addColorStop(0, "#d257cc");
-  grd.addColorStop(0.5, "#210e4d"); // any stop in the middle must be from 0-1
+  const grd = ctx.createLinearGradient(0, 650, 0, 0); //(xStart, yStart, xEnd, yEnd)
+  grd.addColorStop(0, "#7c0876");
+  grd.addColorStop(0.3, "#d257cc");
+  grd.addColorStop(0.4, "#d257cc");
+  grd.addColorStop(0.75, "#210e4d"); // any stop in the middle must be from 0-1
   grd.addColorStop(1, "#000000");
 
   ctx.fillStyle = grd;
@@ -298,10 +300,16 @@ function drawBackground() {
   //lowerBackground
   ctx.fillStyle = THEME.lowerBackground;
   ctx.fillRect(0, groundY + groundHeight, w, h);
+  // ctx.fillText(                                                      THIS IS YOUR REMINDER TO ADD KEYBIND TEXT
+  //   "up to jump",
+  //   20,
+  //   1000
+  // );
 }
 
 function drawScenery() {
   // iterate through each scenery type
+
   for (let sceneryTypeKey in scenery) {
     const sceneryType = scenery[sceneryTypeKey];
     const image =
@@ -331,6 +339,10 @@ function drawInteractables() {
     const entity = gameObjects[i];
     const image = document.getElementById(entity.kind);
 
+    ctx.save(); //keeps eveything inside from bleeding onto the rest of the canvas
+    ctx.shadowBlur = 10; //shadow for gameObjects
+    ctx.shadowColor = entity.shadow; //based on the shadow value in defaults
+
     ctx.drawImage(
       image,
       entity.x,
@@ -338,6 +350,8 @@ function drawInteractables() {
       entity.width,
       entity.height
     );
+
+    ctx.restore(); //end of ctx container
   }
 }
 
@@ -386,6 +400,7 @@ function moveHallebot() {
   if (!player.onGround) {
     player.speedY += gravity;
   }
+
   player.y += player.speedY;
 }
 
@@ -637,7 +652,7 @@ function applyDefaultInteractableUpdateValues(entity) {
         type: entity.type,
         kind: entity.kind,
         imageUrl: defaults.imageUrl,
-        x: entity.x,
+        x: entity.x + 500,
         y: entity.y,
         width: entity.width || defaults.width,
         height: entity.height || defaults.height,
@@ -658,6 +673,7 @@ function applyDefaultInteractableUpdateValues(entity) {
         collect:
           entity.collect === undefined ? defaults.collect : entity.collect,
         hp: entity.hp === undefined ? defaults.hp : entity.hp, // need to allow 0 hp
+        shadow: entity.shadow || defaults.shadow
       };
     }
   }
@@ -670,20 +686,20 @@ function applyDefaultInteractableUpdateValues(entity) {
 
 function drawHUD() {
   // Draw level name
-  ctx.fillStyle = HUD_SETTINGS.textColor;
+  ctx.fillStyle = "";
   ctx.font = HUD_SETTINGS.textFont;
-  ctx.fillText(
-    `${currentLevel.name}`,
-    HUD_SETTINGS.levelPosition.x,
-    HUD_SETTINGS.levelPosition.y
-  );
+
+  const textGrd = ctx.createLinearGradient(0, 0, 200, 0);
+  textGrd.addColorStop(0, "#e100ff");
+  textGrd.addColorStop(0.5, "#fff878");
+  textGrd.addColorStop(1, "#00c8ff");
+
+  ctx.strokeStyle = textGrd; //set color of strokeText
+  ctx.strokeText(`${currentLevel.name}`, 20, 80); //outline of text in canvas
 
   // Draw score
-  ctx.fillText(
-    `Score: ${score}`,
-    HUD_SETTINGS.scorePosition.x,
-    HUD_SETTINGS.scorePosition.y
-  );
+  ctx.strokeText(`Score: ${score}`, 20, 120);
+
 
   // Draw health bar
   const healthBarWidth = HUD_SETTINGS.healthBarSize.width;

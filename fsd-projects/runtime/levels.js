@@ -2,83 +2,79 @@
 // TODOs 7, 11, and 12 will require changes to this section
 const LEVELS = [
   {
-    name: "Level 1",
+    name: "TOKYO", //3 obstacles, 3 platforms, 2 powerups, 3 enemies, 1 goal
     speed: 2,
     gameObjects: [
-      { type: "obstacle", 
-        kind: "spikes", 
-        x: 1600, 
-        y: groundY },
+      {type: "obstacle", kind: "spikes", x: 425, y: groundY},
+      {type: "obstacle", kind: "spikes", x: 725, y: groundY},
+      {type: "obstacle", kind: "spikes", x: 1025, y: groundY},
 
-      { type: "enemy", 
-        kind: "bug", x: 1600, 
-        y: groundY },
+      {type: "platform", kind: "basicPlatform", x: 0, y: groundY - 100},
+      {type: "platform", kind: "basicPlatform", x: 200, y: groundY - 150},
+      {type: "platform", kind: "basicPlatform", x: 500, y: groundY - 150},
+      {type: "platform", kind: "basicPlatform", x: 800, y: groundY - 150},
 
-      { type: "powerup", 
-        kind: "healthUp", 
-        x: 1600, 
-        y: groundY - 50 },
+      {type: "powerup", kind: "healthUp", x: 600, y: groundY},
+      {type: "powerup", kind: "healthUp", x: 900, y: groundY},
 
-      { type: "platform",
-        kind: "basicPlatform",
-        x: 800,
-        y: groundY - 100,
-        contactHealthChange: -5},
-
-      { type: "platform", 
-        kind: "basicPlatform", 
-        x: 600, 
-        y: groundY - 60 },
-
-      { type: "platform",
-        kind: "basicPlatform",
-        x: 1000,
-        y: groundY - 40,
-        contactHealthChange: -10},
-
-      { type: "platform",
-        kind: "basicPlatform",
-        x: 1200,
-        y: groundY - 80,
-        hp: 0},
+      {type: "enemy", kind: "bug", x: 1200, y: groundY - 210, speedY: 3, minY: groundY - 210},
+      {type: "enemy", kind: "bug", x: 1300, y: groundY - 140, speedY: 3, minY: groundY - 210},
+      {type: "enemy", kind: "bug", x: 1400, y: groundY - 70, speedY: 3, minY: groundY - 210},
 
       { type: "goal", 
         kind: "flag", 
-        x: 2000, 
+        x: 1500, 
         y: groundY },
     ],
   },
   {
-    name: "Level 2",
-    speed: 3,
+    name: "KANDA",
+    speed: 10,
     gameObjects: [
-      { type: "obstacle", kind: "spikes", x: 1600, y: groundY },
-      { type: "enemy", kind: "bug", x: 1600, y: groundY },
-      { type: "powerup", kind: "healthUp", x: 1600, y: groundY - 50 },
-      {
-        type: "platform",
-        kind: "basicPlatform",
-        x: 800,
-        y: groundY - 100,
-        contactHealthChange: -5,
-      },
-      { type: "platform", kind: "basicPlatform", x: 600, y: groundY - 60 },
-      {
-        type: "platform",
-        kind: "basicPlatform",
-        x: 1000,
-        y: groundY - 40,
-        contactHealthChange: -10,
-      },
-      {
-        type: "platform",
-        kind: "basicPlatform",
-        x: 1200,
-        y: groundY - 80,
-        hp: 0,
-      },
-
-      { type: "goal", kind: "flag", x: 2250, y: groundY },
+      { type: "goal", 
+        kind: "flag", 
+        x: 1500, 
+        y: groundY },
+    ],
+  },
+  {
+    name: "AKIHABARA",
+    speed: 10,
+    gameObjects: [
+      { type: "goal", 
+        kind: "flag", 
+        x: 1500, 
+        y: groundY },
+    ],
+  },
+  {
+    name: "OKACHIMACHI",
+    speed: 10,
+    gameObjects: [
+      { type: "goal", 
+        kind: "flag", 
+        x: 1500, 
+        y: groundY },
+    ],
+  },
+  {
+    name: "UENO",
+    speed: 10,
+    gameObjects: [
+      { type: "goal", 
+        kind: "flag", 
+        x: 1500, 
+        y: groundY },
+    ],
+  },
+  {
+    name: "UGUISUDANI",
+    speed: 10,
+    gameObjects: [
+      { type: "goal", 
+        kind: "flag", 
+        x: 1500, 
+        y: groundY },
     ],
   },
 ];
@@ -106,6 +102,7 @@ const DEFAULT_VALUES = {
       projectileScoreChange: 0,
       hp: 0,
       collect: false,
+      shadow: "red"
     },
   },
   enemy: {
@@ -118,13 +115,14 @@ const DEFAULT_VALUES = {
       speedX: 0,
       speedY: 0,
       minY: 0,
-      maxY: groundY - 75,
+      maxY: groundY,
       contactHealthChange: -30,
       contactScoreChange: 0,
       projectileHealthChange: 0,
       projectileScoreChange: 50,
       hp: 3,
       collect: false,
+      shadow: "red"
     },
   },
   powerup: {
@@ -132,8 +130,8 @@ const DEFAULT_VALUES = {
       imageUrl: "images/interactable/health-up.png",
       width: 32,
       height: 32,
-      hitWidth: 32,
-      hitHeight: 32,
+      hitWidth: 0,
+      hitHeight: 0,
       speedX: 0,
       speedY: 0,
       minY: 0,
@@ -144,6 +142,7 @@ const DEFAULT_VALUES = {
       projectileScoreChange: 0,
       hp: 0,
       collect: true,
+      shadow: "green"
     },
   },
   goal: {
@@ -163,6 +162,7 @@ const DEFAULT_VALUES = {
       projectileScoreChange: 0,
       hp: 0,
       collect: true,
+      shadow: "yellow"
     },
   },
   platform: {
@@ -182,6 +182,7 @@ const DEFAULT_VALUES = {
       projectileScoreChange: 0,
       hp: Infinity,
       collect: false,
+      shadow: "blue"
     },
   },
 };

@@ -3,22 +3,23 @@
 const THEME = {
   upperBackground: "pink",
   ground: "#00006b",
-  lowerBackground: "#174d69",
+  lowerBackground: "#000",
 };
 
 // These control the ground position and height:
-const groundY = 550; // Y position of the ground
-const groundHeight = 50; // Height of the ground
+
+const groundY = 650; // Y position of the ground
+const groundHeight = 100; // Height of the ground
 
 // Change these to change the HUD, including health bar colors and sizes
 const HUD_SETTINGS = {
-  textColor: "#4b0089",
-  textFont: "30px cursive",
+  textColor: "black",
+  textFont: "bold 40px courier",
   levelPosition: { x: 20, y: 80 },
-  scorePosition: { x: 150, y: 80 },
+  scorePosition: { x: 20, y: 120 },
   healthBarPosition: { x: 10, y: 11 },
   healthBarSize: { width: 1380, height: 30 },
-  healthBarBorderColor: "black",
+  healthBarBorderColor: "none",
   healthBarFillColor: "#ff00f2",
   healthBarBackgroundColor: "#340857",
 };
@@ -30,7 +31,7 @@ const HUD_SETTINGS = {
 
 // setup variables
 const gravity = 0.5; // how much is subtracted from speedY each frame
-const playerJumpStrength = 12; // this is subtracted from the speedY each jump
+const playerJumpStrength = 15; // this is subtracted from the speedY each jump
 
 const projectileSpeed = 8; // the speed of projectiles
 const projectileDamage = 1; // how much damage a projectile does to an enemy

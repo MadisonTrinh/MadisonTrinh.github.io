@@ -11,12 +11,12 @@ const scenery = {
     loopWidth: 0,
     instances: 
     [
-      { x: 100, y: 175, width: 150, height: 150 },
-      { x: 300, y: 225, width: 150, height: 150 },
-      { x: 500, y: 175, width: 150, height: 150 },
-      { x: 700, y: 225, width: 150, height: 150 },
+      { x: 1300, y: 175, width: 150, height: 150 },
+      { x: 1100, y: 225, width: 150, height: 150 },
       { x: 900, y: 175, width: 150, height: 150 },
-      { x: 1100, y: 225, width: 150, height: 150 }
+      { x: 700, y: 225, width: 150, height: 150 },
+      { x: 500, y: 175, width: 150, height: 150 },
+      { x: 300, y: 225, width: 150, height: 150 },
     ]
   },
 
@@ -25,11 +25,11 @@ const scenery = {
     loopWidth: 1400,
     instances: 
     [
-      { x: 1387, width: 100, height: 100, speedX: -3 },
-      { x: 1090, width: 100, height: 100, speedX: -3 },
-      { x: 793, width: 100, height: 100, speedX: -3 },
-      { x: 496, width: 100, height: 100, speedX: -3 },
-      { x: 199, width: 100, height: 100, speedX: -3 },
+      { x: 1387, width: 75, height: 100, speedX: -3 },
+      { x: 1090, width: 75, height: 100, speedX: -3 },
+      { x: 793, width: 75, height: 100, speedX: -3 },
+      { x: 496, width: 75, height: 100, speedX: -3 },
+      { x: 199, width: 75, height: 100, speedX: -3 },
 
       { x: 1288, width: 100, height: 200, speedX: -5 },
       { x: 991, width: 100, height: 200, speedX: -5 },
@@ -37,11 +37,11 @@ const scenery = {
       { x: 397, width: 100, height: 200, speedX: -5 },
       { x: 100, width: 100, height: 200, speedX: -5 },
 
-      { x: 1189, width: 100, height: 300, speedX: -10 },
-      { x: 892, width: 100, height: 300, speedX: -10 },
-      { x: 595, width: 100, height: 300, speedX: -10 },
-      { x: 298, width: 100, height: 300, speedX: -10 },
-      { x: 0, width: 100, height: 300, speedX: -10 }
+      { x: 1189, width: 150, height: 400, speedX: -10 },
+      { x: 892, width: 150, height: 400, speedX: -10 },
+      { x: 595, width: 150, height: 400, speedX: -10 },
+      { x: 298, width: 150, height: 400, speedX: -10 },
+      { x: 0, width: 150, height: 400, speedX: -10 }
     ]
   },
 

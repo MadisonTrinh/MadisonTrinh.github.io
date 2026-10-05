@@ -1,10 +1,13 @@
 function moveScenery() {
   // TODO 2: Move background scenery based on current level speed
+  function sq(num) {
+    return num * num
+  }
 
   for (let i = 0; i < scenery.building.instances.length; i++) {
     var buildingInstance = scenery.building.instances[i];
     
-    buildingInstance["x"] += buildingInstance["speedX"] + currentLevel.speed;
+    buildingInstance["x"] += buildingInstance["speedX"] * (currentLevel.speed * 0.1);
 
     leftToRight(buildingInstance, "building");
   }
@@ -12,13 +15,13 @@ function moveScenery() {
   for (let i = 0; i < scenery.lamp.instances.length; i++) {
     var lampInstance = scenery.lamp.instances[i];
     
-    lampInstance["x"] += lampInstance["speedX"] - currentLevel.speed;
+    lampInstance["x"] += lampInstance["speedX"] * (currentLevel.speed * 0.1);
 
     leftToRight(lampInstance, "lamp");
   }
 
   function leftToRight(instance, type) {
-    if (instance["x"] < -100) {
+    if (instance["x"] < -150) {
       if (type === "building") {
         instance["x"] = scenery.building.loopWidth;
       } else if (type === "lamp") {
@@ -50,7 +53,6 @@ function create(obj) {
   } else if (obj["type"] === "goal") {
     makeGoal(obj);
   } else if (obj["type"] === "platform") {
-    obj["speedX"] = Math.round(Math.random() * 10);
     makePlatform(obj);
   }
 }
@@ -59,8 +61,8 @@ function filterObjects(type) {
   // TODO 5: Return only the game objects of the specified type
   var typeArray = [];
 
-  for (let i = 0; i < currentLevel.gameObjects.length; i++) {
-    var currentObject = currentLevel.gameObjects[i];
+  for (let i = 0; i < gameObjects.length; i++) {
+    var currentObject = gameObjects[i];
 
     if (currentObject["type"] === type) {
       typeArray.push(currentObject);
@@ -76,24 +78,80 @@ function moveGameObjects(objectList) {
   // TODO 6: Move all game objects of a single type based on speeds
   
   for (let i = 0; i < objectList.length; i++) {
-    var objectSpeed = objectList[i]["speedX"];
-    var currentPosition = objectList[i]["x"];
+    var currentObject = objectList[i];
+    
+    if (currentObject["speedX"] > 0) {
+    currentObject["x"] -= currentObject["speedX"] * (currentLevel.speed * 2);
+    } else if (currentObject["speedX"] === 0) {
+      currentObject["x"] -= currentLevel.speed;
+    }
 
-    // console.log(objectSpeed)
-    // console.log(currentPosition)
+    var going;
+    var permSpeedY = currentObject.speedY;
+
+    if (currentObject["speedY"] !== 0) {
+      if (currentObject["type"] === "enemy" && going === "down") {
+          currentObject["speedY"] -= gravity;                              //attempting to add gravity, i'm gonna move on for now so i don't get too behind on the other TODOs
+          // console.log(currentObject.speedY + "speedY")
+          // console.log(permSpeedY + "perm")
+        }
+          currentObject["y"] += currentObject["speedY"];
+
+      if (currentObject["y"] < currentObject["minY"]) {
+        going = "down";
+        currentObject["y"] = currentObject["minY"];
+        currentObject["speedY"] *= -1;
+      }
+
+      if (currentObject["y"] > currentObject["maxY"]) {
+        going = "up";
+        currentObject["y"] = currentObject["maxY"];
+        currentObject["speedY"] = permSpeedY;
+        currentObject["speedY"] *= -1;
+      }
+    }
+
+    // console.log(currentObject["hp"])
   }
-
-
 }
 
 function handleProjectileCollisions() {
   // TODO 8: Handle collisions between projectiles and enemies
+  for (let i = 0; i < gameObjects.length; i++) {
+    var currentObject = gameObjects[i];
+
+    for (let j = 0; j < projectiles.length; j++) {
+      var currentProjectile = projectiles[j];
+
+      if (isCollidingWithProjectile(currentProjectile, currentObject) === true) {
+        handleProjectileObjectCollision(j, i);
+      }
+    }
+  }
 }
 
 function handleHallebotGenericCollisions() {
   // TODO 9: Handle collisions between Hallebot and game objects
+  for (let i = 0; i < gameObjects.length; i++) {
+    var currentObject = gameObjects[i];
+
+    if (currentObject["type"] !== "platform") { 
+      if (isGenericCollision(currentObject) === true) {
+        handleHallebotGenericCollisions(i);
+        
+      }
+    }
+  }
 }
 
 function triggerLevelTransition() {
   // TODO 10: Transition to the next level or show win screen
+  if (currentLevelIndex === LEVELS.length) {
+    player.winConditionMet = true;
+  } else {
+    currentLevelIndex++;
+    currentLevel = LEVELS[currentLevelIndex];
+    gameObjects = [];
+    generateLevel();
+  }
 }
