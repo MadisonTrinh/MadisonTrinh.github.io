@@ -1,8 +1,7 @@
 function moveScenery() {
   // TODO 2: Move background scenery based on current level speed
-  function sq(num) {
-    return num * num
-  }
+  score++;
+  health -= 0.01;
 
   for (let i = 0; i < scenery.building.instances.length; i++) {
     var buildingInstance = scenery.building.instances[i];
@@ -20,12 +19,22 @@ function moveScenery() {
     leftToRight(lampInstance, "lamp");
   }
 
+  for (let i = 0; i < scenery.butterfly.instances.length; i++) {
+    var butterflyInstance = scenery.butterfly.instances[i];
+    
+    butterflyInstance["x"] += butterflyInstance["speedX"] * (currentLevel.speed * 0.1);
+
+    leftToRight(butterflyInstance, "butterfly");
+  }
+
   function leftToRight(instance, type) {
     if (instance["x"] < -150) {
       if (type === "building") {
         instance["x"] = scenery.building.loopWidth;
       } else if (type === "lamp") {
         instance["x"] = scenery.lamp.loopWidth;
+      } else if (type === "butterfly") {
+        instance["x"] = scenery.butterfly.loopWidth;
       }
     }
   }
@@ -69,8 +78,6 @@ function filterObjects(type) {
     }
   }
 
-  // console.log(typeArray);
-
   return typeArray;
 }
 
@@ -91,7 +98,8 @@ function moveGameObjects(objectList) {
 
     if (currentObject["speedY"] !== 0) {
       if (currentObject["type"] === "enemy" && going === "down") {
-          currentObject["speedY"] -= gravity;                              //attempting to add gravity, i'm gonna move on for now so i don't get too behind on the other TODOs
+          currentObject["speedY"] -= gravity;                              
+          /*attempting to add gravity, i'm gonna move on for now so i don't get too behind on the other TODOs*/
           // console.log(currentObject.speedY + "speedY")
           // console.log(permSpeedY + "perm")
         }
@@ -123,7 +131,7 @@ function handleProjectileCollisions() {
     for (let j = 0; j < projectiles.length; j++) {
       var currentProjectile = projectiles[j];
 
-      if (isCollidingWithProjectile(currentProjectile, currentObject) === true) {
+      if (isCollidingWithProjectile(currentObject, currentProjectile) === true) {
         handleProjectileObjectCollision(j, i);
       }
     }
@@ -137,21 +145,27 @@ function handleHallebotGenericCollisions() {
 
     if (currentObject["type"] !== "platform") { 
       if (isGenericCollision(currentObject) === true) {
-        handleHallebotGenericCollisions(i);
+        handleHallebotGenericCollision(i);                        //UNCOMMENT TO ENABLE COLLISION---COMMENT TO DISABLE
         
       }
     }
   }
 }
 
+var addSpeed = 0;
+
 function triggerLevelTransition() {
   // TODO 10: Transition to the next level or show win screen
-  if (currentLevelIndex === LEVELS.length) {
-    player.winConditionMet = true;
+  if (currentLevelIndex === LEVELS.length - 1) { //loops back to first level
+    currentLevelIndex = 0;
+    addSpeed++;                                                 //COMMENT TO PLAYTEST AT BASE SPEED
   } else {
     currentLevelIndex++;
-    currentLevel = LEVELS[currentLevelIndex];
-    gameObjects = [];
-    generateLevel();
   }
+
+  currentLevel = LEVELS[currentLevelIndex];
+  currentLevel.speed += addSpeed;
+  gameObjects = [];
+  generateLevel();
+  health += 25;
 }

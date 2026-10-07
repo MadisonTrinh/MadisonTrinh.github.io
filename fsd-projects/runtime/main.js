@@ -76,7 +76,7 @@ $(function () {
 
   function gameLoop() {
     // do not loop if dead or won
-    if (player.deadAndDeathAnimationDone) {
+    if (player.deadAndDeathAnimationDone || health <= 0) {
       showGameOver();
       return;
     }
@@ -226,7 +226,8 @@ function handleHallebotPlatformCollisions() {
       if (gameObject.hp > 0 && player.speedY < 0) {
         player.speedY = 0;
 
-        player.y = gameObject.y; // position player below platform; platforms draw from the bottom up
+        // player.y = gameObject.y; // position player below platform; platforms draw from the bottom up
+        /*commented the above code because it interfered with platforms on groundY*/
         continue; // we don't want to change health or score from bottom collisions
       }
 
@@ -236,6 +237,10 @@ function handleHallebotPlatformCollisions() {
         score += gameObject.contactScoreChange;
         health += gameObject.contactHealthChange;
         health = Math.max(0, Math.min(100, health));
+      }
+
+      if (keyPress.up === true && player.x >= gameObject.x && gameObject.y === groundY) { //sets the player above the platform if they jump while it's on the ground
+        player.y -= gameObject.height;
       }
     }
   }
@@ -300,11 +305,13 @@ function drawBackground() {
   //lowerBackground
   ctx.fillStyle = THEME.lowerBackground;
   ctx.fillRect(0, groundY + groundHeight, w, h);
-  // ctx.fillText(                                                      THIS IS YOUR REMINDER TO ADD KEYBIND TEXT
-  //   "up to jump",
-  //   20,
-  //   1000
-  // );
+
+  ctx.fillStyle = "white";
+  ctx.fillText(
+    "[^]JUMP [space]SHOOT", //keybind text
+    450,
+    80
+  );
 }
 
 function drawScenery() {
@@ -338,6 +345,7 @@ function drawInteractables() {
   for (let i = 0; i < gameObjects.length; i++) {
     const entity = gameObjects[i];
     const image = document.getElementById(entity.kind);
+    // console.log(image)
 
     ctx.save(); //keeps eveything inside from bleeding onto the rest of the canvas
     ctx.shadowBlur = 10; //shadow for gameObjects
@@ -488,7 +496,7 @@ function changeAnimationType() {
   }
   if (currentAnimationType === animationTypes.lazer) {
     // we want the lazer animation to be rapid, so we stop early
-    if (frameIndex >= 21) {
+    if (frameIndex >= 15) { //there are supposed to be 21 frames, but it wasn't snappy enough
       frameIndex = 0;
       currentAnimationType = animationTypes.run;
     }
@@ -673,7 +681,7 @@ function applyDefaultInteractableUpdateValues(entity) {
         collect:
           entity.collect === undefined ? defaults.collect : entity.collect,
         hp: entity.hp === undefined ? defaults.hp : entity.hp, // need to allow 0 hp
-        shadow: entity.shadow || defaults.shadow
+        shadow: entity.shadow || defaults.shadow,
       };
     }
   }
