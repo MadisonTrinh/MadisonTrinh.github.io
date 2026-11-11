@@ -94,3 +94,7 @@
     color: white;
     transition: 1s;
 }
+
+.dark h1 {
+    color: white;
+}
